@@ -1,77 +1,77 @@
-import React, { useEffect, useState } from 'react'
-import { Header } from '../components/Header'
+import React, { useEffect, useState, } from 'react'
+import { Header, } from '../components/Header'
 import axios from 'axios'
-import { useCookies } from 'react-cookie'
-import { url } from '../const'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useCookies, } from 'react-cookie'
+import { url, } from '../const'
+import { useNavigate, useParams, } from 'react-router-dom'
 import './editTask.css'
 
 export const EditTask = () => {
   const navigate = useNavigate()
-  const { listId, taskId } = useParams()
-  const [cookies] = useCookies()
-  const [title, setTitle] = useState('')
-  const [detail, setDetail] = useState('')
-  const [isDone, setIsDone] = useState()
-  const [errorMessage, setErrorMessage] = useState('')
-  const handleTitleChange = (e) => setTitle(e.target.value)
-  const handleDetailChange = (e) => setDetail(e.target.value)
-  const handleIsDoneChange = (e) => setIsDone(e.target.value === 'done')
+  const { listId, taskId, } = useParams()
+  const [cookies,] = useCookies()
+  const [title, setTitle,] = useState('',)
+  const [detail, setDetail,] = useState('',)
+  const [isDone, setIsDone,] = useState()
+  const [errorMessage, setErrorMessage,] = useState('',)
+  const handleTitleChange = (e,) => setTitle(e.target.value,)
+  const handleDetailChange = (e,) => setDetail(e.target.value,)
+  const handleIsDoneChange = (e,) => setIsDone(e.target.value === 'done',)
   const onUpdateTask = () => {
-    console.log(isDone)
+    console.log(isDone,)
     const data = {
-      title: title,
-      detail: detail,
-      done: isDone
+      title,
+      detail,
+      done: isDone,
     }
 
     axios
       .put(`${url}/lists/${listId}/tasks/${taskId}`, data, {
         headers: {
-          authorization: `Bearer ${cookies.token}`
-        }
-      })
-      .then((res) => {
-        console.log(res.data)
-        navigate('/')
-      })
-      .catch((err) => {
-        setErrorMessage(`更新に失敗しました。${err}`)
-      })
+          authorization: `Bearer ${cookies.token}`,
+        },
+      },)
+      .then((res,) => {
+        console.log(res.data,)
+        navigate('/',)
+      },)
+      .catch((err,) => {
+        setErrorMessage(`更新に失敗しました。${err}`,)
+      },)
   }
 
   const onDeleteTask = () => {
     axios
       .delete(`${url}/lists/${listId}/tasks/${taskId}`, {
         headers: {
-          authorization: `Bearer ${cookies.token}`
-        }
-      })
+          authorization: `Bearer ${cookies.token}`,
+        },
+      },)
       .then(() => {
-        navigate('/')
-      })
-      .catch((err) => {
-        setErrorMessage(`削除に失敗しました。${err}`)
-      })
+        navigate('/',)
+      },)
+      .catch((err,) => {
+        setErrorMessage(`削除に失敗しました。${err}`,)
+      },)
   }
 
   useEffect(() => {
     axios
       .get(`${url}/lists/${listId}/tasks/${taskId}`, {
         headers: {
-          authorization: `Bearer ${cookies.token}`
-        }
-      })
-      .then((res) => {
+          authorization: `Bearer ${cookies.token}`,
+        },
+      },)
+      .then((res,) => {
         const task = res.data
-        setTitle(task.title)
-        setDetail(task.detail)
-        setIsDone(task.done)
-      })
-      .catch((err) => {
-        setErrorMessage(`タスク情報の取得に失敗しました。${err}`)
-      })
-  }, [])
+        setTitle(task.title,)
+        setDetail(task.detail,)
+        setIsDone(task.done,)
+      },)
+      .catch((err,) => {
+        setErrorMessage(`タスク情報の取得に失敗しました。${err}`,)
+      },)
+  }, [],)
 
   return (
     <div>

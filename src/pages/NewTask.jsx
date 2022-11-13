@@ -1,58 +1,58 @@
-import React, { useState, useEffect } from 'react'
-import { useCookies } from 'react-cookie'
+import React, { useState, useEffect, } from 'react'
+import { useCookies, } from 'react-cookie'
 import axios from 'axios'
-import { url } from '../const'
-import { Header } from '../components/Header'
+import { url, } from '../const'
+import { Header, } from '../components/Header'
 import './newTask.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, } from 'react-router-dom'
 
 export const NewTask = () => {
-  const [selectListId, setSelectListId] = useState()
-  const [lists, setLists] = useState([])
-  const [title, setTitle] = useState('')
-  const [detail, setDetail] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [cookies] = useCookies()
+  const [selectListId, setSelectListId,] = useState()
+  const [lists, setLists,] = useState([],)
+  const [title, setTitle,] = useState('',)
+  const [detail, setDetail,] = useState('',)
+  const [errorMessage, setErrorMessage,] = useState('',)
+  const [cookies,] = useCookies()
   const navigate = useNavigate()
-  const handleTitleChange = (e) => setTitle(e.target.value)
-  const handleDetailChange = (e) => setDetail(e.target.value)
-  const handleSelectList = (id) => setSelectListId(id)
+  const handleTitleChange = (e,) => setTitle(e.target.value,)
+  const handleDetailChange = (e,) => setDetail(e.target.value,)
+  const handleSelectList = (id,) => setSelectListId(id,)
   const onCreateTask = () => {
     const data = {
-      title: title,
-      detail: detail,
-      done: false
+      title,
+      detail,
+      done: false,
     }
 
     axios
       .post(`${url}/lists/${selectListId}/tasks`, data, {
         headers: {
-          authorization: `Bearer ${cookies.token}`
-        }
-      })
+          authorization: `Bearer ${cookies.token}`,
+        },
+      },)
       .then(() => {
-        navigate('/')
-      })
-      .catch((err) => {
-        setErrorMessage(`タスクの作成に失敗しました。${err}`)
-      })
+        navigate('/',)
+      },)
+      .catch((err,) => {
+        setErrorMessage(`タスクの作成に失敗しました。${err}`,)
+      },)
   }
 
   useEffect(() => {
     axios
       .get(`${url}/lists`, {
         headers: {
-          authorization: `Bearer ${cookies.token}`
-        }
-      })
-      .then((res) => {
-        setLists(res.data)
-        setSelectListId(res.data[0]?.id)
-      })
-      .catch((err) => {
-        setErrorMessage(`リストの取得に失敗しました。${err}`)
-      })
-  }, [])
+          authorization: `Bearer ${cookies.token}`,
+        },
+      },)
+      .then((res,) => {
+        setLists(res.data,)
+        setSelectListId(res.data[0]?.id,)
+      },)
+      .catch((err,) => {
+        setErrorMessage(`リストの取得に失敗しました。${err}`,)
+      },)
+  }, [],)
 
   return (
     <div>
@@ -64,14 +64,14 @@ export const NewTask = () => {
           <label>リスト</label>
           <br />
           <select
-            onChange={(e) => handleSelectList(e.target.value)}
+            onChange={(e,) => handleSelectList(e.target.value,)}
             className="new-task-select-list"
           >
-            {lists.map((list, key) => (
+            {lists.map((list, key,) => (
               <option key={key} className="list-item" value={list.id}>
                 {list.title}
               </option>
-            ))}
+            ),)}
           </select>
           <br />
           <label>タイトル</label>
