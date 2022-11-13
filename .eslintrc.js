@@ -3,14 +3,20 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended', 'standard'],
+  extends: [
+    'react-app',
+    'react-app/jest',
+    'plugin:react/recommended',
+    'standard',
+    'prettier',
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'prettier'],
-  rules: { 'comma-dangle': ['error', 'always'] },
+  plugins: ['react'],
+  rules: { 'react/jsx-uses-react': 'off', 'react/react-in-jsx-scope': 'off' },
   settings: {
     react: {
       version: 'detect',
