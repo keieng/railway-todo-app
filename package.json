@@ -33,7 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx ",
-    "lint:fix": "eslint --fix ./src/** --ext .js,.jsx"
+    "lint:fix": "eslint --fix ./src/** --ext .js,.jsx",
+    "prettier:check": "prettier --check './src/**/*.{js,jsx}'",
+    "prettier:write": "prettier --write './src/**/*.{js,jsx}'"
   },
   "browserslist": {
     "production": [
